@@ -1,0 +1,123 @@
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .hidden {
+            display: none;
+        }
+        .btn-space {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="my-4 text-center">To-Do List</h1>
+        <form id="todoForm" class="mb-4">
+            <input type="hidden" id="editIndex" value="">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="task">Task:</label>
+                    <input type="text" class="form-control" id="task" name="task" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="status">Status:</label>
+                    <select class="form-control" id="status" name="status" required>
+                        <option value="Not Started">Not Started</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="deadline">Deadline:</label>
+                    <input type="date" class="form-control" id="deadline" name="deadline" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="action">Action:</label>
+                    <input type="text" class="form-control" id="action" name="action" required>
+                </div>
+            </div>
+            <button type="button" class="btn btn-primary btn-block" onclick="addOrUpdateTask()">Add Task</button>
+        </form>
+        
+        <h2 class="my-4 text-center">Task List</h2>
+        <table class="table table-bordered table-striped" id="taskTable">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Task</th>
+                    <th>Status</th>
+                    <th>Deadline</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function addOrUpdateTask() {
+            const task = document.getElementById('task').value;
+            const status = document.getElementById('status').value;
+            const deadline = document.getElementById('deadline').value;
+            const action = document.getElementById('action').value;
+            const editIndex = document.getElementById('editIndex').value;
+
+            const tableBody = document.querySelector('#taskTable tbody');
+
+            if (editIndex === '') {
+                const newRow = document.createElement('tr');
+                appendTaskRow(newRow, task, status, deadline, action);
+                tableBody.appendChild(newRow);
+            } else {
+                const row = tableBody.rows[editIndex];
+                appendTaskRow(row, task, status, deadline, action);
+                document.getElementById('editIndex').value = '';
+            }
+
+            document.getElementById('todoForm').reset();
+        }
+
+        function appendTaskRow(row, task, status, deadline, action) {
+            row.innerHTML = `
+                <td>${task}</td>
+                <td>${status}</td>
+                <td>${deadline}</td>
+                <td>
+                    <button class="btn btn-sm btn-secondary btn-space" onclick="editTask(this)">Edit</button>
+                    <button class="btn btn-sm btn-danger" onclick="deleteTask(this)">Delete</button>
+                </td>
+            `;
+        }
+
+        function editTask(button) {
+            const row = button.closest('tr');
+            const cells = row.children;
+
+            document.getElementById('task').value = cells[0].textContent;
+            document.getElementById('status').value = cells[1].textContent;
+            document.getElementById('deadline').value = cells[2].textContent;
+            document.getElementById('action').value = cells[3].textContent;
+            document.getElementById('editIndex').value = row.rowIndex - 1;
+        }
+
+        function deleteTask(button) {
+            const row = button.closest('tr');
+            row.remove();
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
