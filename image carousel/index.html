@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Bootstrap Carousel</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators"></ol>
+    <div class="carousel-inner"></div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const images = [
+            "https://via.placeholder.com/800x400?text=First+slide",
+            "https://via.placeholder.com/800x400?text=Second+slide",
+            "https://via.placeholder.com/800x400?text=Third+slide"
+        ];
+
+        const indicators = document.querySelector('.carousel-indicators');
+        const inner = document.querySelector('.carousel-inner');
+
+        images.forEach((src, index) => {
+            // Create indicator
+            const indicator = document.createElement('li');
+            indicator.setAttribute('data-target', '#carouselExampleIndicators');
+            indicator.setAttribute('data-slide-to', index);
+            if (index === 0) {
+                indicator.classList.add('active');
+            }
+            indicators.appendChild(indicator);
+
+            const item = document.createElement('div');
+            item.classList.add('carousel-item');
+            if (index === 0) {
+                item.classList.add('active');
+            }
+            const img = document.createElement('img');
+            img.classList.add('d-block', 'w-100');
+            img.src = src;
+            item.appendChild(img);
+            inner.appendChild(item);
+        });
+    });
+</script>
+
+</body>
+</html>
