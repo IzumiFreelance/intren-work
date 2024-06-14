@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Carousel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f5f5f5;
+        }
+
+        .carousel {
+            position: relative;
+            width: 800px;
+            height: 400px;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .carousel-inner {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-item {
+            min-width: 100%;
+            height: 100%;
+            transition: opacity 1s ease;
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .carousel-control-prev,
+        .carousel-control-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+
+        .carousel-control-prev {
+            left: 10px;
+        }
+
+        .carousel-control-next {
+            right: 10px;
+        }
+
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            font-size: 24px;
+        }
+
+        .carousel-indicators {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+        }
+
+        .carousel-indicators span {
+            height: 10px;
+            width: 10px;
+            margin: 0 5px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .carousel-indicators .active {
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+    </style>
+</head>
+<body>
+
+<div class="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="https://via.placeholder.com/800x400?text=First+slide" alt="First slide">
+        </div>
+        <div class="carousel-item">
+            <img src="https://via.placeholder.com/800x400?text=Second+slide" alt="Second slide">
+        </div>
+        <div class="carousel-item">
+            <img src="https://via.placeholder.com/800x400?text=Third+slide" alt="Third slide">
+        </div>
+    </div>
+    <a class="carousel-control-prev" role="button">
+        <span class="carousel-control-prev-icon" aria-hidden="true">&#10094;</span>
+    </a>
+    <a class="carousel-control-next" role="button">
+        <span class="carousel-control-next-icon" aria-hidden="true">&#10095;</span>
+    </a>
+    <div class="carousel-indicators">
+        <span class="active" data-slide-to="0"></span>
+        <span data-slide-to="1"></span>
+        <span data-slide-to="2"></span>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const carouselInner = document.querySelector('.carousel-inner');
+        const carouselItems = document.querySelectorAll('.carousel-item');
+        const prevButton = document.querySelector('.carousel-control-prev');
+        const nextButton = document.querySelector('.carousel-control-next');
+        const indicators = document.querySelectorAll('.carousel-indicators span');
+
+        let currentIndex = 0;
+
+        function updateCarousel(index) {
+            carouselInner.style.transform = `translateX(-${index * 100}%)`;
+            carouselItems.forEach((item, idx) => {
+                item.classList.toggle('active', idx === index);
+            });
+            indicators.forEach((indicator, idx) => {
+                indicator.classList.toggle('active', idx === index);
+            });
+        }
+
+        prevButton.addEventListener('click', () => {
+            currentIndex = (currentIndex === 0) ? carouselItems.length - 1 : currentIndex - 1;
+            updateCarousel(currentIndex);
+        });
+
+        nextButton.addEventListener('click', () => {
+            currentIndex = (currentIndex === carouselItems.length - 1) ? 0 : currentIndex + 1;
+            updateCarousel(currentIndex);
+        });
+
+        indicators.forEach((indicator, idx) => {
+            indicator.addEventListener('click', () => {
+                currentIndex = idx;
+                updateCarousel(currentIndex);
+            });
+        });
+
+        setInterval(() => {
+            nextButton.click();
+        }, 3000);
+    });
+</script>
+
+</body>
+</html>
