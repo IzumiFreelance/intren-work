@@ -5,7 +5,7 @@
 Hi there! I'm [IzumiFreelance/Altaf hussain], a passionate Web Developer! 🌐
 
 🛠️ Frontend: HTML, CSS, JavaScript, React
-🔧 Backend: Node.js, Express
+🔧 Ai integration (chatGpt prompts)
 🐙 Version Control: Git & GitHub
 📊 Databases:  uder going.
 Always learning, always coding! 🚀
