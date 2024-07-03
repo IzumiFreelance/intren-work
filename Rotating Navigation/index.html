@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotating Navigation</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            width: 300px;
+            height: 300px;
+            position: relative;
+            transform: perspective(1000px);
+            transition: transform 0.5s;
+        }
+
+        .rotating-nav {
+            width: 100%;
+            height: 100%;
+            background: #333;
+            color: #fff;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: rotateY(-90deg);
+            transform-origin: left center;
+            transition: transform 0.5s;
+        }
+
+        .rotating-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+        }
+
+        .rotating-nav li {
+            margin: 10px 0;
+        }
+
+        .rotating-nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .content {
+            width: 100%;
+            height: 100%;
+            background: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        #toggle {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="rotating-nav">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="content">
+            <button id="toggle">Toggle Navigation</button>
+            <h1>Welcome to Our Site</h1>
+            <p>This is some content on the main page.</p>
+        </div>
+    </div>
+    <script>
+        const toggleButton = document.getElementById('toggle');
+        const container = document.querySelector('.container');
+        const rotatingNav = document.querySelector('.rotating-nav');
+
+        toggleButton.addEventListener('click', () => {
+            if (container.style.transform === 'rotateY(-90deg)') {
+                container.style.transform = 'rotateY(0deg)';
+                rotatingNav.style.transform = 'rotateY(-90deg)';
+            } else {
+                container.style.transform = 'rotateY(-90deg)';
+                rotatingNav.style.transform = 'rotateY(0deg)';
+            }
+        });
+    </script>
+</body>
+</html>
