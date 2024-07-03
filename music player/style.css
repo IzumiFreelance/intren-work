@@ -1,0 +1,36 @@
+.music-player {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    background: linear-gradient(rgb(1, 61, 182),#5e4343);
+    color: white;
+    text-align: center;
+}
+.btn-custom {
+    background-color: #0a74da;
+    color: white;
+    border: none;
+}
+.btn-custom:hover {
+    background-color: #055db0;
+    color: #fff;
+}
+.track-list {
+    max-height: 200px;
+    overflow-y: auto;
+    width: 100%;
+}
+.track-item {
+    cursor: pointer;
+}
+.gif-container {
+    width: 150px;
+    height: 150px;
+    background: url('bbw.gif') center/cover no-repeat;
+    margin-bottom: 20px;
+}
+audio {
+    width: 100%;
+}
