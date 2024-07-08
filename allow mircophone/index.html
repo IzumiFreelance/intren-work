@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microphone Access</title>
+</head>
+<body>
+    <button id="micButton">Allow Microphone</button>
+
+    <script>
+        document.getElementById('micButton').addEventListener('click', function() {
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia({ audio: true})
+                .then(function(stream) {
+                    console.log('Microphone access granted!');
+                })
+                .catch(function(error) {
+                    console.error('Microphone access denied:',error);
+                });
+            } else {
+                console.error('update your bowser');
+            }
+        });
+    </script>
+</body>
+</html>
