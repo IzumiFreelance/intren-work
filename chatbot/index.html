@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .chat-container {
+            max-width: 600px;
+            margin: 50px auto;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            background-color: #fff;
+            padding: 20px;
+        }
+        .chat-box {
+            height: 400px;
+            overflow-y: scroll;
+            border: 1px solid #dee2e6;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        .chat-message {
+            margin-bottom: 15px;
+        }
+        .chat-message.bot {
+            text-align: left;
+        }
+        .chat-message.user {
+            text-align: right;
+        }
+        .chat-input {
+            width: calc(100% - 100px);
+            display: inline-block;
+        }
+        .chat-send-btn {
+            width: 80px;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-box" id="chatBox"></div>
+        <div class="input-group">
+            <input type="text" id="userInput" class="form-control chat-input" placeholder="Type a message">
+            <div class="input-group-append">
+                <button class="btn btn-primary chat-send-btn" id="sendBtn">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            const botResponses = {
+                "hello": "Hi there! How can I assist you today?",
+                "how are you": "I'm just a bot, but I'm doing great! How about you?",
+                "what is your name": "I'm ChatBot, your virtual assistant.",
+                "bye": "Goodbye! Have a great day!",
+                "default": "I'm sorry, I don't understand that. Can you please rephrase?",
+                "sup":"sup dude"
+            };
+
+            $('#sendBtn').click(function() {
+                sendMessage();
+            });
+
+            $('#userInput').keypress(function(e) {
+                if (e.which === 13) {
+                    sendMessage();
+                }
+            });
+
+            function sendMessage() {
+                let userInput = $('#userInput').val().trim().toLowerCase();
+                if (userInput === '') return;
+
+                appendMessage('user', userInput);
+                $('#userInput').val('');
+                $('#chatBox').scrollTop($('#chatBox')[0].scrollHeight);
+
+                setTimeout(() => {
+                    let botResponse = botResponses[userInput] || botResponses['default'];
+                    appendMessage('bot', botResponse);
+                    $('#chatBox').scrollTop($('#chatBox')[0].scrollHeight);
+                }, 500);
+            }
+
+            function appendMessage(sender, message) {
+                $('#chatBox').append(`<div class="chat-message ${sender}">${message}</div>`);
+            }
+        });
+    </script>
+</body>
+</html>
